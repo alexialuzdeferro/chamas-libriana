@@ -101,7 +101,7 @@ Este portal carrega energias ancestrais e sagradas. Navegue com respeito.
 - 🔗 [Bio.site - Almas de Pombagira](https://bio.site/AlmasdePombagira)
 - 🌳 [Linktree - Alexia Rosa de Fogo](https://linktr.ee/alexiarosadefogo)
 - 🎨 [Canva Site - Pombagiras](https://pombagiras.my.canva.site/)
-- 💻 [GitHub - Grimório das Pombagiras](https://github.com/alexialuzdeferro)
+- 💻 [GitHub - Meu trabalho](https://github.com/alexialuzdeferro)
 
 ---
 
