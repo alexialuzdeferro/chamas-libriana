@@ -49,63 +49,64 @@
         
         .content-wrapper { position: relative; z-index: 1; }
         
-        /* CONTADOR DE ACESSOS - MAIS TRANSPARENTE E DISCRETO */
+        /* CONTADOR DE ACESSOS - MAIOR E FUNCIONAL */
         .view-counter {
             position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 0, 110, 0.1);
-            border-radius: 8px;
-            padding: 4px 8px;
-            font-size: 10px;
-            color: rgba(0, 217, 255, 0.6);
-            opacity: 0.4;
-            transition: all 0.5s ease;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 110, 0.3);
+            border-radius: 12px;
+            padding: 8px 15px;
+            font-size: 13px;
+            color: var(--iron-light);
+            opacity: 0.8;
+            transition: all 0.4s ease;
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 4px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-            min-width: auto;
-            max-width: 100px;
-            overflow: hidden;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            min-width: 120px;
+            cursor: pointer;
         }
         
         .view-counter:hover {
-            opacity: 0.9;
-            background: rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 0, 110, 0.3);
-            transform: scale(1.05);
+            opacity: 1;
+            background: rgba(10, 10, 10, 0.9);
+            border-color: rgba(255, 0, 110, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 110, 0.2);
         }
         
         .counter-icon {
-            font-size: 10px;
-            color: rgba(255, 0, 110, 0.5);
-            opacity: 0.7;
+            font-size: 14px;
+            color: var(--fire-rose);
+            opacity: 0.9;
         }
         
         .counter-number {
-            font-weight: 500;
+            font-weight: 600;
             font-family: monospace;
-            letter-spacing: 0.5px;
-            font-size: 11px;
-            color: rgba(0, 217, 255, 0.8);
+            letter-spacing: 1px;
+            font-size: 14px;
+            color: var(--iron-light);
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
         }
         
         .counter-text {
-            opacity: 0.6;
-            font-size: 9px;
+            opacity: 0.8;
+            font-size: 11px;
             white-space: nowrap;
+            color: rgba(255, 255, 255, 0.7);
         }
         
-        /* Versão minimalista - apenas o número */
+        /* Versão minimalista */
         .view-counter.minimal {
-            padding: 3px 6px;
-            border-radius: 6px;
-            background: rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 6px 10px;
+            min-width: auto;
+            background: rgba(10, 10, 10, 0.5);
         }
         
         .view-counter.minimal .counter-icon,
@@ -114,8 +115,18 @@
         }
         
         .view-counter.minimal .counter-number {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        .view-counter.loading .counter-number {
+            animation: pulse 1.5s infinite;
         }
         
         /* HERO SECTION */
@@ -458,10 +469,14 @@
             .cta-container { flex-direction: column; align-items: stretch; }
             .cta-btn { text-align: center; }
             .view-counter {
-                bottom: 8px;
-                right: 8px;
-                padding: 2px 4px;
-                font-size: 8px;
+                bottom: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 11px;
+                min-width: 100px;
+            }
+            .counter-number {
+                font-size: 12px;
             }
         }
         
@@ -491,8 +506,8 @@
     </style>
 </head>
 <body>
-    <!-- Contador de Acessos SUPER discreto -->
-    <div class="view-counter minimal" id="viewCounter">
+    <!-- Contador de Acessos corrigido -->
+    <div class="view-counter" id="viewCounter">
         <span class="counter-icon">👁️</span>
         <span class="counter-number">0</span>
         <span class="counter-text">views</span>
@@ -651,96 +666,189 @@
         </footer>
     </div>
 
+    <!-- Script do Supabase PRIMEIRO -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script>
         // Configuração do Supabase
         const SUPABASE_URL = 'https://rbygxkbewzknvjjhxdvw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJieWd4a2Jld3prbnZqamh4ZHZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYwMDcxNjQsImV4cCI6MjA4MTU4MzE2NH0.YrHF9HEGo6yv9MyNsPzFgBhaAB1DRh2SLU8f7L6s1nY';
         
-        // Nome da página para o contador
-        const chamas_libriana = 'site-pessoal-alexia-melusine';
+        // Nome da página para o contador - MESMO QUE VOCÊ USOU NO SQL
+        const PAGE_NAME = 'chamas-librianas';
+        
+        // Referência ao elemento do contador
+        const viewCounter = document.getElementById('viewCounter');
+        const counterNumber = viewCounter.querySelector('.counter-number');
         
         // Inicializar Supabase
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let supabase;
         
-        async function updateViewCount() {
+        async function initSupabase() {
             try {
-                // 1. Primeiro verifica se a página já existe
-                let { data: existingPage, error: fetchError } = await supabase
-                    .from('page_views')
-                    .select('*')
-                    .eq('page', chamas_libriana)
-                    .single();
-                
-                // Se não existir, cria
-                if (fetchError && fetchError.code === 'PGRST116') {
-                    const { data: newPage, error: insertError } = await supabase
-                        .from('page_views')
-                        .insert([{ page: chamas_libriana , view_count: 1 }])
-                        .select();
-                    
-                    if (!insertError && newPage) {
-                        document.getElementById('viewCounter').querySelector('.counter-number').textContent = '1';
-                    }
-                } else if (existingPage) {
-                    // Incrementa o contador existente
-                    const { data: updatedPage, error: updateError } = await supabase
-                        .from('page_views')
-                        .update({ view_count: existingPage.view_count + 1 })
-                        .eq('id', existingPage.id)
-                        .select();
-                    
-                    if (!updateError && updatedPage && updatedPage[0]) {
-                        document.getElementById('viewCounter').querySelector('.counter-number').textContent = 
-                            updatedPage[0].view_count.toLocaleString('pt-BR');
-                    }
+                // Carrega a biblioteca do Supabase se ainda não estiver carregada
+                if (typeof window.supabase === 'undefined') {
+                    console.log('Aguardando biblioteca Supabase...');
+                    await new Promise(resolve => setTimeout(resolve, 1000));
                 }
                 
-                // 2. Atualiza a exibição
-                const { data: currentPage, error: currentError } = await supabase
-                    .from('page_views')
-                    .select('view_count')
-                    .eq('page', chamas_libriana)
-                    .single();
-                
-                if (!currentError && currentPage) {
-                    document.getElementById('viewCounter').querySelector('.counter-number').textContent = 
-                        currentPage.view_count.toLocaleString('pt-BR');
-                }
-                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('Supabase inicializado com sucesso para página:', PAGE_NAME);
+                return true;
             } catch (error) {
-                console.error('Erro ao atualizar contador:', error);
+                console.error('Erro ao inicializar Supabase:', error);
+                return false;
             }
         }
         
-        // Executa quando a página carrega
-        document.addEventListener('DOMContentLoaded', updateViewCount);
-        
-        // Atualiza a cada 60 segundos se a página ficar aberta
-        setInterval(async () => {
+        async function updateViewCount() {
             try {
-                const { data: currentPage, error } = await supabase
+                // Mostra estado de carregamento
+                viewCounter.classList.add('loading');
+                counterNumber.textContent = '...';
+                
+                // Inicializa Supabase
+                const supabaseReady = await initSupabase();
+                if (!supabaseReady) {
+                    throw new Error('Supabase não inicializado');
+                }
+                
+                console.log('Atualizando contador para página:', PAGE_NAME);
+                
+                // Primeiro tenta buscar o valor atual
+                const { data: existingPage, error: fetchError } = await supabase
                     .from('page_views')
-                    .select('view_count')
-                    .eq('page', chamas_libriana)
+                    .select('*')
+                    .eq('page', PAGE_NAME)
                     .single();
                 
-                if (!error && currentPage) {
-                    document.getElementById('viewCounter').querySelector('.counter-number').textContent = 
-                        currentPage.view_count.toLocaleString('pt-BR');
+                if (fetchError && fetchError.code === 'PGRST116') {
+                    // Página não existe - cria
+                    console.log('Criando nova entrada para:', PAGE_NAME);
+                    const { data: newPage, error: insertError } = await supabase
+                        .from('page_views')
+                        .insert([{ 
+                            page: PAGE_NAME, 
+                            view_count: 1 
+                        }])
+                        .select();
+                    
+                    if (insertError) {
+                        console.error('Erro ao criar página:', insertError);
+                        // Tenta com upsert
+                        const { data: upsertData, error: upsertError } = await supabase
+                            .from('page_views')
+                            .upsert({ 
+                                page: PAGE_NAME, 
+                                view_count: 1
+                            }, {
+                                onConflict: 'page'
+                            })
+                            .select();
+                        
+                        if (!upsertError && upsertData && upsertData[0]) {
+                            counterNumber.textContent = '1';
+                            console.log('Página criada via upsert:', upsertData[0]);
+                        }
+                    } else if (newPage && newPage[0]) {
+                        counterNumber.textContent = '1';
+                        console.log('Página criada:', newPage[0]);
+                    }
+                } else if (existingPage) {
+                    // Página existe - incrementa
+                    const newCount = existingPage.view_count + 1;
+                    console.log('Incrementando de', existingPage.view_count, 'para', newCount);
+                    
+                    const { error: updateError } = await supabase
+                        .from('page_views')
+                        .update({ 
+                            view_count: newCount
+                        })
+                        .eq('id', existingPage.id);
+                    
+                    if (updateError) {
+                        console.error('Erro ao atualizar:', updateError);
+                        // Fallback - mostra o número atual
+                        counterNumber.textContent = existingPage.view_count.toLocaleString('pt-BR');
+                    } else {
+                        counterNumber.textContent = newCount.toLocaleString('pt-BR');
+                        console.log('Contador atualizado para:', newCount);
+                    }
+                }
+                
+                // Remove estado de carregamento
+                viewCounter.classList.remove('loading');
+                
+            } catch (error) {
+                console.error('Erro no updateViewCount:', error);
+                viewCounter.classList.remove('loading');
+                counterNumber.textContent = 'Erro';
+            }
+        }
+        
+        async function getCurrentViewCount() {
+            try {
+                const supabaseReady = await initSupabase();
+                if (!supabaseReady) return;
+                
+                const { data, error } = await supabase
+                    .from('page_views')
+                    .select('view_count')
+                    .eq('page', PAGE_NAME)
+                    .single();
+                
+                if (!error && data) {
+                    counterNumber.textContent = data.view_count.toLocaleString('pt-BR');
+                    console.log('Contador atual:', data.view_count);
+                } else if (error) {
+                    console.log('Página ainda não existe no banco:', error.message);
                 }
             } catch (error) {
-                console.error('Erro ao atualizar contador em tempo real:', error);
+                console.error('Erro ao buscar contador:', error);
             }
-        }, 60000);
+        }
         
-        // Toggle entre minimalista e normal ao clicar
-        document.getElementById('viewCounter').addEventListener('click', function(e) {
-            e.preventDefault();
-            this.classList.toggle('minimal');
+        // Função para alternar modo minimalista
+        function toggleMinimalMode() {
+            viewCounter.classList.toggle('minimal');
+            // Salva preferência no localStorage
+            localStorage.setItem('counterMinimalMode', viewCounter.classList.contains('minimal'));
+        }
+        
+        // Executa quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM carregado, iniciando contador para:', PAGE_NAME);
+            
+            // Carrega preferência do modo minimalista
+            const savedMode = localStorage.getItem('counterMinimalMode');
+            if (savedMode === 'true') {
+                viewCounter.classList.add('minimal');
+            }
+            
+            // Primeiro tenta apenas mostrar o contador atual
+            getCurrentViewCount();
+            
+            // Depois tenta incrementar (com delay para garantir que a biblioteca carregou)
+            setTimeout(updateViewCount, 1500);
+            
+            // Atualiza a cada 30 segundos se a página ficar aberta
+            setInterval(getCurrentViewCount, 30000);
+            
+            // Adiciona evento de clique para alternar modo
+            viewCounter.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleMinimalMode();
+            });
+            
+            // Adiciona tooltip
+            viewCounter.title = 'Clique para alternar entre modo normal e minimalista';
         });
+        
+        // Fallback: se window.load já aconteceu
+        if (document.readyState === 'complete') {
+            getCurrentViewCount();
+            setTimeout(updateViewCount, 1000);
+        }
     </script>
-    
-    <!-- Inclui a biblioteca do Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
