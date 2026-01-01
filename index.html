@@ -381,6 +381,50 @@
             transform: translateY(-3px);
         }
         
+        /* ESTILO DO CONTADOR DISCRETO PARA ESTE HUB */
+        .access-counter {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(10, 10, 10, 0.2);
+            color: rgba(255, 255, 255, 0.4);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            backdrop-filter: blur(25px);
+            border: 0.5px solid rgba(255, 0, 110, 0.05);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            max-width: 170px;
+            opacity: 0.5;
+        }
+
+        .access-counter:hover {
+            background: rgba(10, 10, 10, 0.3);
+            color: rgba(255, 255, 255, 0.6);
+            opacity: 1;
+            border: 0.5px solid rgba(255, 0, 110, 0.2);
+            box-shadow: 
+                0 3px 18px rgba(0, 0, 0, 0.4),
+                0 0 25px rgba(255, 0, 110, 0.15);
+        }
+
+        .access-counter::before {
+            content: '🌌 ';
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        .access-counter.loading {
+            opacity: 0.3;
+        }
+        
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .hero-images { grid-template-columns: 1fr; }
@@ -388,6 +432,24 @@
             .featured-card { grid-column: span 1; }
             .cta-container { flex-direction: column; align-items: stretch; }
             .cta-btn { text-align: center; }
+            
+            .access-counter {
+                bottom: 12px;
+                right: 12px;
+                font-size: 11px;
+                padding: 5px 12px;
+                max-width: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .access-counter {
+                bottom: 10px;
+                right: 10px;
+                font-size: 10px;
+                padding: 4px 10px;
+                max-width: 140px;
+            }
         }
         
         /* SCROLL ANIMATIONS */
@@ -569,5 +631,145 @@
             <p style="margin-top: 2rem; opacity: 0.5;">© 2026 - Todos os direitos ao Sagrado Feminino</p>
         </footer>
     </div>
+
+    <!-- CONTADOR DE ACESSOS -->
+    <div class="access-counter loading" id="accessCounter">Portais...</div>
+
+    <script>
+        // ========== CONFIGURAÇÃO DO CONTADOR ==========
+        const SUPABASE_URL = 'https://rbygxkbewzknvjjhxdvw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJieWd4a2Jld3prbnZqamh4ZHZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYwMDcxNjQsImV4cCI6MjA4MTU4MzE2NH0.YrHF9HEGo6yv9MyNsPzFgBhaAB1DRh2SLU8f7L6s1nY';
+
+        // ID ÚNICO PARA ESTA PÁGINA (Hub Rosa de Fogo)
+        const PAGE_ID = 'hub-rosa-de-fogo-luz-de-ferro';
+
+        // Função para o contador de acessos
+        async function updateViewCounter() {
+            try {
+                const counterElement = document.getElementById('accessCounter');
+                
+                // 1. Busca o valor atual
+                const currentResponse = await fetch(
+                    `${SUPABASE_URL}/rest/v1/page_views?page=eq.${encodeURIComponent(PAGE_ID)}&select=view_count`,
+                    {
+                        headers: {
+                            'apikey': SUPABASE_ANON_KEY,
+                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                
+                if (!currentResponse.ok) {
+                    throw new Error('Falha ao buscar contador');
+                }
+                
+                const currentData = await currentResponse.json();
+                
+                // Se não existe registro, cria um
+                if (!currentData || currentData.length === 0) {
+                    const createResponse = await fetch(
+                        `${SUPABASE_URL}/rest/v1/page_views`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'apikey': SUPABASE_ANON_KEY,
+                                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                                'Content-Type': 'application/json',
+                                'Prefer': 'return=representation'
+                            },
+                            body: JSON.stringify({
+                                page: PAGE_ID,
+                                view_count: 1,
+                                updated_at: new Date().toISOString()
+                            })
+                        }
+                    );
+                    
+                    if (createResponse.ok) {
+                        const createdData = await createResponse.json();
+                        const newCount = createdData[0]?.view_count || 1;
+                        counterElement.textContent = `${newCount} acessos`;
+                        counterElement.classList.remove('loading');
+                    } else {
+                        throw new Error('Falha ao criar registro');
+                    }
+                    
+                } else {
+                    // Se existe, incrementa
+                    const currentCount = currentData[0]?.view_count || 0;
+                    const newCount = currentCount + 1;
+                    
+                    const updateResponse = await fetch(
+                        `${SUPABASE_URL}/rest/v1/page_views?page=eq.${encodeURIComponent(PAGE_ID)}`,
+                        {
+                            method: 'PATCH',
+                            headers: {
+                                'apikey': SUPABASE_ANON_KEY,
+                                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                                'Content-Type': 'application/json',
+                                'Prefer': 'return=representation'
+                            },
+                            body: JSON.stringify({
+                                view_count: newCount,
+                                updated_at: new Date().toISOString()
+                            })
+                        }
+                    );
+                    
+                    if (updateResponse.ok) {
+                        const updatedData = await updateResponse.json();
+                        const finalCount = updatedData[0]?.view_count || newCount;
+                        counterElement.textContent = `${finalCount} acessos`;
+                        counterElement.classList.remove('loading');
+                    } else {
+                        throw new Error('Falha ao atualizar contador');
+                    }
+                }
+                
+            } catch (error) {
+                console.log('Erro no contador:', error);
+                
+                // Fallback: contador local no localStorage
+                const counterElement = document.getElementById('accessCounter');
+                let localCount = localStorage.getItem(`views_${PAGE_ID}`);
+                
+                if (localCount === null) {
+                    localCount = '1';
+                } else {
+                    localCount = (parseInt(localCount) + 1).toString();
+                }
+                
+                localStorage.setItem(`views_${PAGE_ID}`, localCount);
+                counterElement.textContent = `${localCount} acessos`;
+                counterElement.classList.remove('loading');
+                counterElement.style.color = 'rgba(255, 255, 255, 0.3)';
+                counterElement.title = 'Contador local (offline)';
+            }
+        }
+
+        // Iniciar contador quando a página carrega
+        document.addEventListener('DOMContentLoaded', () => {
+            updateViewCounter();
+            
+            // Animação de scroll suave para links internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
