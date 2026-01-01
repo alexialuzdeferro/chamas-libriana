@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexia Melusine | Rosa de Fogo & Luz de Ferro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --mystic-purple: #6B0F8F;
+            --fire-rose: #FF006E;
+            --iron-light: #00D9FF;
+            --trans-pink: #F5A9B8;
+            --trans-blue: #5BCEFA;
+            --cosmic-gold: #FFD700;
+            --deep-black: #0A0A0A;
+            --glass-white: rgba(255,255,255,0.05);
+            --glow-intense: 0 0 40px rgba(255,0,110,0.6);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1a0033 50%, #0A0A0A 100%);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(107,15,143,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,0,110,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0,217,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: cosmicBreath 20s ease-in-out infinite;
+        }
+        
+        @keyframes cosmicBreath {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        .content-wrapper { position: relative; z-index: 1; }
+        
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-images {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            opacity: 0.15;
+            filter: grayscale(30%);
+        }
+        
+        .hero-images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: imagePulse 8s ease-in-out infinite;
+        }
+        
+        .hero-images img:nth-child(1) { animation-delay: 0s; }
+        .hero-images img:nth-child(2) { animation-delay: 2s; }
+        .hero-images img:nth-child(3) { animation-delay: 4s; }
+        
+        @keyframes imagePulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+        
+        .mystical-symbol {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--fire-rose), var(--iron-light), var(--cosmic-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: titleGlow 3s ease-in-out infinite;
+            line-height: 1.1;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255,0,110,0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0,217,255,0.8)); }
+        }
+        
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--trans-pink), var(--trans-blue), var(--trans-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .cta-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cta-primary {
+            background: linear-gradient(135deg, var(--fire-rose), var(--mystic-purple));
+            color: white;
+            border-color: var(--fire-rose);
+            box-shadow: var(--glow-intense);
+        }
+        
+        .cta-secondary {
+            background: var(--glass-white);
+            color: var(--iron-light);
+            border-color: var(--iron-light);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(255,0,110,0.5);
+        }
+        
+        /* SEÇÕES */
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--fire-rose), var(--cosmic-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* GRID MODERNO */
+        .grid-modern {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .card-modern {
+            background: var(--glass-white);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-modern::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--fire-rose), var(--iron-light), var(--cosmic-gold));
+            transform: scaleX(0);
+            transition: transform 0.5s;
+        }
+        
+        .card-modern:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(255,0,110,0.3);
+            border-color: rgba(255,0,110,0.5);
+        }
+        
+        .card-modern:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .card-modern h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--iron-light);
+        }
+        
+        .card-modern ul {
+            list-style: none;
+        }
+        
+        .card-modern li {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .card-modern li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--fire-rose);
+        }
+        
+        .card-modern a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .card-modern a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--fire-rose);
+            transition: width 0.3s;
+        }
+        
+        .card-modern a:hover {
+            color: var(--fire-rose);
+        }
+        
+        .card-modern a:hover::after {
+            width: 100%;
+        }
+        
+        /* FEATURED CARD */
+        .featured-card {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(107,15,143,0.3), rgba(255,0,110,0.2));
+        }
+        
+        /* ABOUT SECTION */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--trans-pink), var(--trans-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .about-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .identity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .tag {
+            padding: 0.6rem 1.5rem;
+            background: var(--glass-white);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* FOOTER */
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: var(--glass-white);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-links a {
+            color: var(--iron-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+        }
+        
+        .social-links a:hover {
+            color: var(--fire-rose);
+            transform: translateY(-3px);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-images { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+            .featured-card { grid-column: span 1; }
+            .cta-container { flex-direction: column; align-items: stretch; }
+            .cta-btn { text-align: center; }
+        }
+        
+        /* SCROLL ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card-modern {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .card-modern:nth-child(1) { animation-delay: 0.1s; }
+        .card-modern:nth-child(2) { animation-delay: 0.2s; }
+        .card-modern:nth-child(3) { animation-delay: 0.3s; }
+        .card-modern:nth-child(4) { animation-delay: 0.4s; }
+        .card-modern:nth-child(5) { animation-delay: 0.5s; }
+        .card-modern:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-images">
+                <img src="https://raw.githubusercontent.com/alexialuzdeferro/pombagira-revelada/refs/heads/main/Al%C3%AA%20(3).png" alt="Alexia Melusine">
+                <img src="https://raw.githubusercontent.com/alexialuzdeferro/pombagira-revelada/refs/heads/main/Al%C3%AA%20(4).png" alt="Rosa de Fogo">
+                <img src="https://raw.githubusercontent.com/alexialuzdeferro/pombagira-revelada/refs/heads/main/Al%C3%AA%20(5).png" alt="Luz de Ferro">
+            </div>
+            <div class="hero-content">
+                <div class="mystical-symbol">✦ ☾ ✦</div>
+                <h1>Alexia Melusine</h1>
+                <p class="subtitle">Rosa de Fogo ∞ Luz de Ferro</p>
+                <p class="tagline">Espiritualidade Fluida • Pombagiras Reveladas • Identidade Trans Libriana em Movimento</p>
+                <div class="cta-container">
+                    <a href="#portfolio" class="cta-btn cta-primary">Explore Meu Universo Místico</a>
+                    <a href="#contato" class="cta-btn cta-secondary">Conecte-se Comigo</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUEM SOU -->
+        <section style="background: rgba(10,10,10,0.5);">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Almas em Fogo, Luz em Ferro</h2>
+                    <p>Sou Alexia Melusine, uma alma fluida que transita entre mundos, carregando a força ancestral das Pombagiras e a luz transformadora da identidade trans.</p>
+                    <p>Meu trabalho une espiritualidade, arte, tecnologia e ativismo. Crio portais digitais que conectam pessoas à sabedoria das encruzilhadas, à beleza da não-conformidade e ao poder da autenticidade.</p>
+                    <div class="identity-tags">
+                        <span class="tag">🏳️‍⚧️ Trans</span>
+                        <span class="tag">🏳️‍🌈 Não-Binária</span>
+                        <span class="tag">⚖️ Libriana</span>
+                        <span class="tag">🔥 Rosa de Fogo</span>
+                        <span class="tag">✨ Luz de Ferro</span>
+                        <span class="tag">👑 Pombagira</span>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="https://raw.githubusercontent.com/alexialuzdeferro/pombagira-revelada/refs/heads/main/Al%C3%AA%20(3).png" style="max-width: 100%; border-radius: 24px; box-shadow: 0 20px 60px rgba(255,0,110,0.4);" alt="Alexia">
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO -->
+        <section id="portfolio">
+            <h2 class="section-title">Meus Trabalhos Místicos</h2>
+            <p class="section-subtitle">Portais digitais que conectam o sagrado feminino, a força das Pombagiras e a jornada trans ao universo espiritual</p>
+            
+            <div class="grid-modern">
+                <!-- POMBAGIRAS -->
+                <div class="card-modern featured-card">
+                    <span class="card-icon">👑</span>
+                    <h3>Universo das Pombagiras</h3>
+                    <ul>
+                        <li><a href="https://alexialuzdeferro.github.io/Hub-Pombagiras/" target="_blank">Hub Pombagiras - Portal Central</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/pombagira-revelada/" target="_blank">Pombagira Revelada</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/12rainhas-pombagiras/" target="_blank">12 Rainhas Pombagiras</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/almasdepombagira/" target="_blank">Almas de Pombagira</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/minha-pombagira/" target="_blank">Minha Pombagira</a></li>
+                        <li><a href="https://github.com/alexialuzdeferro/grimorio-das-pombagiras" target="_blank">Grimório das Pombagiras</a></li>
+                    </ul>
+                </div>
+
+                <!-- ORÁCULOS -->
+                <div class="card-modern">
+                    <span class="card-icon">🔮</span>
+                    <h3>Oráculos & Giras</h3>
+                    <ul>
+                        <li><a href="https://alexialuzdeferro.github.io/12-oraculo/" target="_blank">12 Oráculo</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/oraculo-pombagiras/" target="_blank">Oráculo Pombagiras</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/gira-completa/" target="_blank">Gira Completa</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/giras/" target="_blank">Giras Espirituais</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/misterio-das-giras/" target="_blank">Mistério das Giras</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/-Soundboard-Pombagiras-/" target="_blank">Soundboard Pombagiras</a></li>
+                    </ul>
+                </div>
+
+                <!-- MEDITAÇÃO -->
+                <div class="card-modern">
+                    <span class="card-icon">🧘‍♀️</span>
+                    <h3>Meditação & Paz Interior</h3>
+                    <ul>
+                        <li><a href="https://alexialuzdeferro.github.io/paz/" target="_blank">Paz</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/paz_interior/" target="_blank">Paz Interior</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/relaxamento/" target="_blank">Relaxamento</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/medita-o/" target="_blank">Meditação</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/Velas-Virtuais/" target="_blank">Velas Virtuais</a></li>
+                    </ul>
+                </div>
+
+                <!-- IDENTIDADE -->
+                <div class="card-modern">
+                    <span class="card-icon">🌹</span>
+                    <h3>Identidade & Cartões</h3>
+                    <ul>
+                        <li><a href="https://alexialuzdeferro.github.io/alexia-melusine/" target="_blank">Alexia Melusine</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/melusine/" target="_blank">Melusine</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/card-photos/" target="_blank">Card Photos</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/card_visit/" target="_blank">Cartão de Visita</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/melusine-card/" target="_blank">Melusine Card</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/Business-Card/" target="_blank">Business Card</a></li>
+                    </ul>
+                </div>
+
+                <!-- MÚSICA GÓTICA -->
+                <div class="card-modern">
+                    <span class="card-icon">🎵</span>
+                    <h3>Música Gótica & Sombras</h3>
+                    <ul>
+                        <li><a href="https://alexialuzdeferro.github.io/dark-melancholy/" target="_blank">Dark Melancholy</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/tv-cyber-goth/" target="_blank">TV Cyber Goth</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/vampire-waves/" target="_blank">Vampire Waves</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/dark-tv/" target="_blank">Dark TV</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/dark-music/" target="_blank">Dark Music</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/PONTOS-CANTADOS/" target="_blank">Pontos Cantados</a></li>
+                    </ul>
+                </div>
+
+                <!-- HUBS CENTRAIS -->
+                <div class="card-modern">
+                    <span class="card-icon">🌐</span>
+                    <h3>Hubs & Portais</h3>
+                    <ul>
+                        <li><a href="https://alexialuzdeferro.github.io/super-hub-central/" target="_blank">Super Hub Central</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/Hub-Central-Pombagiras/" target="_blank">Hub Central Pombagiras</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/social-hub/" target="_blank">Social Hub</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/melusine_redes/" target="_blank">Melusine Redes</a></li>
+                        <li><a href="https://alexialuzdeferro.github.io/redes_sociais/" target="_blank">Redes Sociais</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTATO -->
+        <section id="contato" style="background: rgba(107,15,143,0.2);">
+            <h2 class="section-title">Conecte-se ao Fogo & à Luz</h2>
+            <p class="section-subtitle">Entre em contato para consultas espirituais, trabalhos personalizados ou parcerias criativas</p>
+            
+            <div class="social-links">
+                <a href="https://bio.site/AlmasdePombagira" target="_blank">🔗 Bio.site</a>
+                <a href="https://linktr.ee/alexiarosadefogo" target="_blank">🌳 Linktree</a>
+                <a href="https://pombagiras.my.canva.site/" target="_blank">🎨 Canva Site</a>
+                <a href="https://github.com/alexialuzdeferro" target="_blank">💻 GitHub</a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;">✦ Alexia Melusine ✦</p>
+            <p style="opacity: 0.7;">Rosa de Fogo • Luz de Ferro • Alma Fluida</p>
+            <p style="margin-top: 2rem; opacity: 0.5;">© 2026 - Todos os direitos ao Sagrado Feminino</p>
+        </footer>
+    </div>
+</body>
+</html>
