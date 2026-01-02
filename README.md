@@ -13,6 +13,19 @@
 
 Este não é apenas um site. É uma **encruzilhada digital** onde o sagrado feminino, a espiritualidade umbandista e a vivência trans se encontram em código, cor e fogo.
 
+
+🌹✨ NOVO PORTAL EDUCATIVO SOBRE POMBA-GIRAS ✨🌹
+
+Acabei de lançar um portal completo com:
+• Glossário de 25+ termos sagrados
+• 8 curiosidades fascinantes
+• 12 perguntas frequentes respondidas
+• Bibliografia recomendada
+• Documentários sérios
+
+Tudo com respeito e profundidade!
+
+🔗 https://alexialuzdeferro.github.io/chamas-libriana/
 ---
 
 ## 👑 **Quem Sou**
